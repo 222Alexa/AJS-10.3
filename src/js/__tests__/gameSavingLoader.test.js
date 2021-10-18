@@ -3,14 +3,14 @@ import read from "../reader";
 
 jest.mock("../reader");
 
-beforeEach(() => {
+afterEach(() => {
   jest.resetAllMocks();
 });
 
 test("read once", async () => {
   read.mockImplementation(() => jest.requireActual("../reader").default());
   const data =
-    '{"id":9,"created":1546300800,"userInfo":{"id":1,name":"Hitman","level":10,"points":2000}}';
+    '{"id":9,"created":1546300800,"userInfo":{"id":1,"name":"Hitman","level":10,"points":2000}}';
   const game = await GameSavingLoader.load();
   expect(read).toHaveBeenCalledTimes(1);
   expect(game).toEqual(data);
